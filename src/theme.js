@@ -1,6 +1,9 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
+	palette: {
+		orange: '#fed128',
+	},
 	typography: {
 		// fontFamily: `"Do Hyeon", "Roboto", "Helvetica", "Arial", sans-serif`,
 	},

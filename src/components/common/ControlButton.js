@@ -11,8 +11,10 @@ const StyledControlButton = styled.div`
 		${(p) =>
 			p.active &&
 			css`
-				text-shadow: 0 0 1vw #fa1c16, 0 0 3vw #fa1c16, 0 0 10vw #fa1c16;
-				color: #fed128;
+				text-shadow: 0 0 1vw ${(p) => p.theme.palette.orange},
+					0 0 3vw ${(p) => p.theme.palette.orange},
+					0 0 10vw ${(p) => p.theme.palette.orange};
+				color: ${(p) => p.theme.palette.orange}; ;
 			`}
 	}
 `;

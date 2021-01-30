@@ -9,7 +9,9 @@ export default configureStore({
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware({
-			immutableCheck: { ignoredPaths: ['coinsList'] },
-			serializableCheck: { ignoredPaths: ['coinsList'], warnAfter: 500 },
+			immutableCheck: false,
+			serializableCheck: false,
+			// immutableCheck: { ignoredPaths: ['coinsList'] },
+			// serializableCheck: { ignoredPaths: ['coinsList'], warnAfter: 500 },
 		}),
 });

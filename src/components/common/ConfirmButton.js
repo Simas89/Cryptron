@@ -5,9 +5,9 @@ import { Box, Typography } from '@material-ui/core';
 import styled from 'styled-components';
 
 const TheButton = styled(Box)`
-	border: 1px solid #fed128;
+	border: 1px solid ${(p) => p.theme.palette.orange};
 	padding: 10px 16px;
-	color: #fed128;
+	color: ${(p) => p.theme.palette.orange};
 	&:hover {
 		cursor: pointer;
 	}
