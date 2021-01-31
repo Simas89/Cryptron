@@ -34,5 +34,5 @@ export const ControlButton = ({ name }) => {
 };
 
 ControlButton.propTypes = {
-	name: PropTypes.string,
+	name: PropTypes.string.isRequired,
 };

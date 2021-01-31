@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Tooltip } from '@material-ui/core';
 
@@ -33,11 +34,16 @@ export const TooltipCustom = ({ children, items }) => {
 	return (
 		<HtmlTooltip
 			placement="top"
-			interactive
+			// interactive
 			arrow
 			title={<Contents>{items}</Contents>}
 		>
 			{children}
 		</HtmlTooltip>
 	);
+};
+
+TooltipCustom.propTypes = {
+	children: PropTypes.element.isRequired,
+	items: PropTypes.element.isRequired,
 };

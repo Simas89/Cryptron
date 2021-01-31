@@ -1,21 +1,31 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { sortByKeyValue, filterObjToArr } from 'utils';
-const cc = require('cryptocompare');
+import { sortByKeyValue, filterTopListedCoins } from 'utils';
+import cc from 'cryptocompare';
 cc.setApiKey(process.env.REACT_APP_CRYPTOCOMPARE);
-
-const filtersList = ['BTC', 'XRP', 'ETH', 'DOGE'];
 
 export const coinsListSlice = createSlice({
 	name: 'coinsList',
-	initialState: {},
+	initialState: { favourites: ['BTC', 'ETH', 'DOGE'], coinsList: [] },
 	reducers: {
 		setCoinsList: (state, action) => {
-			return filterObjToArr(filtersList, action.payload);
+			state.coinsList = filterTopListedCoins(action.payload);
+		},
+		addToFavourites: (state, action) => {
+			if (state.favourites.length < 12)
+				state.favourites.push(action.payload);
+		},
+		removeFromFavourites: (state, action) => {
+			const index = state.favourites.indexOf(action.payload);
+			state.favourites.splice(index, 1);
 		},
 	},
 });
 
-export const { setCoinsList } = coinsListSlice.actions;
+export const {
+	setCoinsList,
+	addToFavourites,
+	removeFromFavourites,
+} = coinsListSlice.actions;
 
 export const fetchCoins = () => async (dispatch) => {
 	let coinList = await cc.coinList();
@@ -23,16 +33,43 @@ export const fetchCoins = () => async (dispatch) => {
 };
 
 export const selectAggregatedListingData = (state) => {
-	let aggregatedData = [];
+	let aggregatedList = [];
 
-	if (state.coinsList.length) {
-		aggregatedData = state.coinsList.map((el) => {
-			return { CoinName: el.CoinName, symbol: el.Symbol };
+	if (state.coinsList.coinsList.length) {
+		aggregatedList = state.coinsList.coinsList.map((el) => {
+			return {
+				CoinName: el.CoinName,
+				symbol: el.Symbol,
+				ImageUrl: el.ImageUrl,
+			};
 		});
 	}
 
-	aggregatedData.sort(sortByKeyValue);
-	return aggregatedData;
+	aggregatedList.sort(sortByKeyValue);
+	return aggregatedList.slice(220);
+};
+
+export const selectFavourites = (state) => {
+	let aggregatedFavourites = [];
+	if (state.coinsList.coinsList.length) {
+		aggregatedFavourites = state.coinsList.favourites.map((el) => {
+			const index = state.coinsList.coinsList.findIndex(
+				(t) => t.Symbol === el
+			);
+			return state.coinsList.coinsList[index];
+		});
+
+		aggregatedFavourites = aggregatedFavourites.map((el) => {
+			return {
+				CoinName: el.CoinName,
+				symbol: el.Symbol,
+				ImageUrl: el.ImageUrl,
+			};
+		});
+
+		aggregatedFavourites.sort(sortByKeyValue);
+	}
+	return aggregatedFavourites;
 };
 
 export default coinsListSlice.reducer;

@@ -6,6 +6,7 @@ const SettingsScreen = () => {
 	return (
 		<>
 			<WelcomeHeader />
+			<CoinGrid topSection />
 			<ConfirmButton />
 			<CoinGrid />
 		</>

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { fetchCoins } from 'redux/slices/coinsListSlice';
 import SettingsScreen from 'screens/SettingsScreen';
