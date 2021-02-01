@@ -5,18 +5,10 @@ cc.setApiKey(process.env.REACT_APP_CRYPTOCOMPARE);
 
 export const coinsListSlice = createSlice({
 	name: 'coinsList',
-	initialState: { favourites: ['BTC', 'ETH', 'DOGE'], coinsList: [] },
+	initialState: { coinsList: [] },
 	reducers: {
 		setCoinsList: (state, action) => {
 			state.coinsList = filterTopListedCoins(action.payload);
-		},
-		addToFavourites: (state, action) => {
-			if (state.favourites.length < 12)
-				state.favourites.push(action.payload);
-		},
-		removeFromFavourites: (state, action) => {
-			const index = state.favourites.indexOf(action.payload);
-			state.favourites.splice(index, 1);
 		},
 	},
 });
@@ -52,7 +44,7 @@ export const selectAggregatedListingData = (state) => {
 export const selectFavourites = (state) => {
 	let aggregatedFavourites = [];
 	if (state.coinsList.coinsList.length) {
-		aggregatedFavourites = state.coinsList.favourites.map((el) => {
+		aggregatedFavourites = state.app.favourites.map((el) => {
 			const index = state.coinsList.coinsList.findIndex(
 				(t) => t.Symbol === el
 			);

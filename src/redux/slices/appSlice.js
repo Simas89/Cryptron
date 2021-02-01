@@ -1,9 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { savedSettings } from 'utils';
-const cc = require('cryptocompare');
-cc.setApiKey(
-	'66c2e5e1a43f0e41c36cec77b7d5c3dd0ae63c692e7a40d4a821326a4e032389'
-);
 
 export const appSlice = createSlice({
 	name: 'app',
@@ -12,14 +8,39 @@ export const appSlice = createSlice({
 		setPage: (state, action) => {
 			state.page = action.payload;
 		},
-		confirmFavourites: (state) => {
+		saveSettingsLocalStorage: (state, action) => {
 			state.firstVisit = false;
 			state.page = 'dashboard';
-			localStorage.setItem('cryptron', JSON.stringify({ test: 'hello' }));
+			localStorage.setItem(
+				'cryptron',
+				JSON.stringify({
+					firstVisit: state.firstVisit,
+					page: 'dashboard',
+					favourites: state.favourites,
+				})
+			);
+		},
+		addToFavourites: (state, action) => {
+			console.log(state);
+			if (state.favourites.length < 12)
+				state.favourites.push(action.payload);
+		},
+		removeFromFavourites: (state, action) => {
+			const index = state.favourites.indexOf(action.payload);
+			state.favourites.splice(index, 1);
 		},
 	},
 });
 
-export const { setPage, confirmFavourites } = appSlice.actions;
+export const confirmFavourites = () => (dispatch, getState) => {
+	dispatch(saveSettingsLocalStorage());
+};
+
+export const {
+	setPage,
+	saveSettingsLocalStorage,
+	addToFavourites,
+	removeFromFavourites,
+} = appSlice.actions;
 
 export default appSlice.reducer;

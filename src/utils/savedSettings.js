@@ -4,8 +4,9 @@ export const savedSettings = () => {
 		return {
 			page: 'settings',
 			firstVisit: true,
+			favourites: [],
 		};
 	} else {
-		return {};
+		return cryptronData;
 	}
 };

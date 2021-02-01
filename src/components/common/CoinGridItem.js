@@ -1,12 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-	addToFavourites,
-	removeFromFavourites,
-} from 'redux/slices/coinsListSlice';
+import { addToFavourites, removeFromFavourites } from 'redux/slices/appSlice';
 import styled, { css } from 'styled-components';
-import { Typography } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import { CoinImage, CoinRemoveLayer } from 'components/common';
 
 const Div = styled.div`
@@ -37,8 +34,9 @@ const Div = styled.div`
 export const CoinGridItem = ({ element, topSection }) => {
 	const dispatch = useDispatch();
 	const isFavoured = useSelector((state) =>
-		state.coinsList.favourites.includes(element.symbol)
+		state.app.favourites.includes(element.symbol)
 	);
+	// const isFavoured = false;
 
 	const clickHandler = () => {
 		if (topSection) {
@@ -62,9 +60,11 @@ export const CoinGridItem = ({ element, topSection }) => {
 			<Typography variant="body1">{element.symbol}</Typography>
 
 			<CoinImage element={element} />
-			<Typography variant="body2" noWrap>
-				{element.CoinName}
-			</Typography>
+			<Box maxWidth="100%">
+				<Typography variant="body2" noWrap>
+					{element.CoinName}
+				</Typography>
+			</Box>
 		</Div>
 	);
 };
