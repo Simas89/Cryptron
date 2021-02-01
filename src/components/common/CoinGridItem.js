@@ -36,7 +36,6 @@ export const CoinGridItem = ({ element, topSection }) => {
 	const isFavoured = useSelector((state) =>
 		state.app.favourites.includes(element.symbol)
 	);
-	// const isFavoured = false;
 
 	const clickHandler = () => {
 		if (topSection) {

@@ -21,7 +21,6 @@ export const appSlice = createSlice({
 			);
 		},
 		addToFavourites: (state, action) => {
-			console.log(state);
 			if (state.favourites.length < 12)
 				state.favourites.push(action.payload);
 		},
