@@ -16,7 +16,7 @@ const StyledAppBar = styled.div`
 `;
 
 const Logo = () => {
-	return <Typography variant="button">Cryptron</Typography>;
+	return <Typography variant="h5">Cryptron</Typography>;
 };
 
 const NavBar = () => {

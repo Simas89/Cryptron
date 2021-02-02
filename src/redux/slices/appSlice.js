@@ -1,14 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { savedSettings } from 'utils';
+import cc from 'cryptocompare';
+cc.setApiKey(process.env.REACT_APP_CRYPTOCOMPARE);
 
 export const appSlice = createSlice({
 	name: 'app',
-	initialState: { ...savedSettings() },
+	initialState: { ...savedSettings(), prices: [] },
 	reducers: {
 		setPage: (state, action) => {
 			state.page = action.payload;
 		},
-		saveSettingsLocalStorage: (state, action) => {
+		saveSettingsLocalStorage: (state) => {
 			state.firstVisit = false;
 			state.page = 'dashboard';
 			localStorage.setItem(
@@ -28,10 +30,29 @@ export const appSlice = createSlice({
 			const index = state.favourites.indexOf(action.payload);
 			state.favourites.splice(index, 1);
 		},
+		setPrices: (state, action) => {
+			state.prices = action.payload;
+		},
 	},
 });
 
-export const confirmFavourites = () => (dispatch, getState) => {
+export const fetchPrices = () => async (dispatch, getState) => {
+	const favourites = getState().app.favourites;
+	const returnData = [];
+
+	for (let i = 0; i < favourites.length; i++) {
+		try {
+			let priceData = await cc.priceFull(favourites[i], 'USD');
+			returnData.push(priceData);
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
+	dispatch(setPrices(returnData));
+};
+
+export const confirmFavourites = () => (dispatch) => {
 	dispatch(saveSettingsLocalStorage());
 };
 
@@ -40,6 +61,7 @@ export const {
 	saveSettingsLocalStorage,
 	addToFavourites,
 	removeFromFavourites,
+	setPrices,
 } = appSlice.actions;
 
 export default appSlice.reducer;

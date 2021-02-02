@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { saveSettingsLocalStorage } from 'redux/slices/appSlice';
+import { saveSettingsLocalStorage, fetchPrices } from 'redux/slices/appSlice';
 import { Box, Typography } from '@material-ui/core';
 import styled from 'styled-components';
 
@@ -17,6 +17,7 @@ export const ConfirmButton = () => {
 	const dispatch = useDispatch();
 	const clickHandler = () => {
 		dispatch(saveSettingsLocalStorage());
+		dispatch(fetchPrices());
 	};
 	return (
 		<Box display="flex" justifyContent="center">
