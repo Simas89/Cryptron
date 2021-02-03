@@ -1,4 +1,6 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSpotlightFavourite } from 'redux/slices/appSlice';
 import styled, { css } from 'styled-components';
 import { Box, Grid, Typography } from '@material-ui/core';
 
@@ -20,10 +22,10 @@ const Div = styled.div`
 			`}
 	}
 	${(p) =>
-		p.isFavoured &&
-		!p.topSection &&
+		p.isSpotlightFavourite &&
 		css`
 			background-color: rgb(36, 58, 91);
+			pointer-events: none;
 		`}
 `;
 
@@ -35,25 +37,37 @@ const numberFormat = (number) => {
 	return String(number).slice(0, 7);
 };
 
-const PriceGridItem = ({ price, index }) => {
+const PriceGridItem = ({ price }) => {
 	const sym = Object.keys(price)[0];
+	const isSpotlightFavourite = useSelector(
+		(state) => state.app.spotlightFavourite === sym
+	);
+	const dispatch = useDispatch();
 	const data = price[sym]['USD'];
+
+	const clickHandler = () => {
+		dispatch(setSpotlightFavourite(sym));
+	};
 	return (
-		<Grid item xs={3} md={2}>
-			<Div>
+		<Grid item xs={3} md={2} onClick={clickHandler}>
+			<Div isSpotlightFavourite={isSpotlightFavourite}>
 				<Box width="100%" display="flex" justifyContent="space-between">
 					<Typography noWrap variant="body2">
 						{sym}
 					</Typography>
 					<ChangePct red={data.CHANGEPCT24HOUR < 0}>
 						<Typography noWrap variant="body2">
-							<b>{data.CHANGEPCT24HOUR.toFixed(2)}</b>
+							<b>
+								{data.CHANGEPCT24HOUR
+									? data.CHANGEPCT24HOUR.toFixed(2)
+									: null}
+							</b>
 						</Typography>
 					</ChangePct>
 				</Box>
 
 				<Typography noWrap variant="h5">
-					£{numberFormat(data.PRICE)}
+					{data.PRICE ? `£${numberFormat(data.PRICE)}` : 'error'}
 				</Typography>
 			</Div>
 		</Grid>

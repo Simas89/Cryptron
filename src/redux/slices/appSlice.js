@@ -5,7 +5,7 @@ cc.setApiKey(process.env.REACT_APP_CRYPTOCOMPARE);
 
 export const appSlice = createSlice({
 	name: 'app',
-	initialState: { ...savedSettings(), prices: [] },
+	initialState: { spotlightFavourite: null, prices: [], ...savedSettings() },
 	reducers: {
 		setPage: (state, action) => {
 			state.page = action.payload;
@@ -13,6 +13,8 @@ export const appSlice = createSlice({
 		saveSettingsLocalStorage: (state) => {
 			state.firstVisit = false;
 			state.page = 'dashboard';
+			state.spotlightFavourite =
+				state.favourites[state.favourites.length - 1];
 			localStorage.setItem(
 				'cryptron',
 				JSON.stringify({
@@ -32,6 +34,16 @@ export const appSlice = createSlice({
 		},
 		setPrices: (state, action) => {
 			state.prices = action.payload;
+		},
+		setSpotlightFavourite: (state, action) => {
+			state.spotlightFavourite = action.payload;
+			localStorage.setItem(
+				'cryptron',
+				JSON.stringify({
+					...savedSettings(),
+					spotlightFavourite: action.payload,
+				})
+			);
 		},
 	},
 });
@@ -62,6 +74,7 @@ export const {
 	addToFavourites,
 	removeFromFavourites,
 	setPrices,
+	setSpotlightFavourite,
 } = appSlice.actions;
 
 export default appSlice.reducer;

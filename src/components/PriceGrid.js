@@ -7,8 +7,8 @@ const PriceGrid = () => {
 	const prices = useSelector((state) => state.app.prices);
 	return (
 		<Grid container spacing={1}>
-			{prices.map((el, i) => (
-				<PriceGridItem key={Object.keys(el)[0]} price={el} index={i} />
+			{prices.map((el) => (
+				<PriceGridItem key={Object.keys(el)[0]} price={el} />
 			))}
 		</Grid>
 	);
