@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { CoinImage } from 'components/common';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { Typography } from '@material-ui/core';
 
 const Div = styled.div`
