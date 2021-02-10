@@ -11,7 +11,8 @@ const Div = styled.div`
 	justify-content: center;
 	align-items: flex-start;
 	padding: 8px;
-	background-color: rgb(6, 26, 68);
+	backdrop-filter: blur(4px);
+	border: 1px solid rgba(255, 255, 255, 0.2);
 
 	pointer-events: none;
 

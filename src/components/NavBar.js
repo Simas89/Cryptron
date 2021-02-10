@@ -6,7 +6,7 @@ import { ControlButton } from 'components/common';
 const StyledAppBar = styled.div`
 	position: relative;
 	background: none;
-	height: 60px;
+	height: 80px;
 	display: flex;
 	align-items: center;
 	.MuiGrid-root {

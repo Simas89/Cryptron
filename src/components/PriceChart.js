@@ -9,14 +9,8 @@ ReactHighCharts.Highcharts.setOptions(highChartsTheme);
 
 const Div = styled.div`
 	position: relative;
-	background-color: rgb(6, 26, 68);
-	/* width: calc(100% - ${(p) => p.theme.spacing(1)}px); */
 	width: calc(100% - 230px);
-
-	&:hover {
-		cursor: pointer;
-		background-color: rgb(36, 58, 91);
-	}
+	backdrop-filter: blur(4px);
 `;
 
 const PriceChart = () => {

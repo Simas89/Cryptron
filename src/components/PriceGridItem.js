@@ -24,7 +24,9 @@ const Div = styled.div`
 	${(p) =>
 		p.isSpotlightFavourite &&
 		css`
-			background-color: rgb(36, 58, 91);
+			background-color: rgba(0, 0, 0, 0);
+			border: 1px solid rgba(255, 255, 255, 0.2);
+			backdrop-filter: blur(4px);
 			pointer-events: none;
 		`}
 `;
