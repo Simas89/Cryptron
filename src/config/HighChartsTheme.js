@@ -1,31 +1,22 @@
 export const highChartsTheme = {
 	colors: [
-		'#DDDF0D',
-		'#55BF3B',
-		'#DF5353',
-		'#7798BF',
-		'#aaeeee',
-		'#ff0066',
-		'#eeaaee',
-		'#55BF3B',
-		'#DF5353',
-		'#7798BF',
-		'#aaeeee',
+		'#61d936',
+		'#552ccb',
+		'#1163c9',
+		'#04A1EE',
+		'#08C6E0',
+		'#146B9E',
+		'#F376C1',
+		'#1B2839',
 	],
 	chart: {
-		backgroundColor: {
-			linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
-			stops: [
-				[0, 'rgb(48, 48, 96)'],
-				[1, 'rgb(0, 0, 0)'],
-			],
-		},
+		backgroundColor: '#061a44',
 		borderColor: '#000000',
-		borderWidth: 2,
+		borderWidth: 0,
 		className: 'dark-container',
-		plotBackgroundColor: 'rgba(255, 255, 255, .1)',
+		plotBackgroundColor: '#061a44',
 		plotBorderColor: '#CCCCCC',
-		plotBorderWidth: 1,
+		plotBorderWidth: 0,
 	},
 	title: {
 		style: {
@@ -41,7 +32,7 @@ export const highChartsTheme = {
 	},
 	xAxis: {
 		gridLineColor: '#333333',
-		gridLineWidth: 1,
+		gridLineWidth: 0,
 		labels: {
 			style: {
 				color: '#A0A0A0',
@@ -60,6 +51,7 @@ export const highChartsTheme = {
 	},
 	yAxis: {
 		gridLineColor: '#333333',
+		gridLineWidth: 0,
 		labels: {
 			style: {
 				color: '#A0A0A0',
@@ -68,7 +60,7 @@ export const highChartsTheme = {
 		lineColor: '#A0A0A0',
 		minorTickInterval: null,
 		tickColor: '#A0A0A0',
-		tickWidth: 1,
+		tickWidth: 0,
 		title: {
 			style: {
 				color: '#CCC',
@@ -131,9 +123,7 @@ export const highChartsTheme = {
 		},
 	},
 	credits: {
-		style: {
-			color: '#666',
-		},
+		enabled: false,
 	},
 	labels: {
 		style: {

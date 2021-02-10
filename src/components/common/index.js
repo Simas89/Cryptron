@@ -5,3 +5,4 @@ export * from './CoinGridItem';
 export * from './TooltipCustom';
 export * from './CoinImage';
 export * from './CoinRemoveLayer';
+export * from './Loader';

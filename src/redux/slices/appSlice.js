@@ -1,11 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { savedSettings } from 'utils';
 import cc from 'cryptocompare';
+import moment from 'moment';
 cc.setApiKey(process.env.REACT_APP_CRYPTOCOMPARE);
 
 export const appSlice = createSlice({
 	name: 'app',
-	initialState: { spotlightFavourite: null, prices: [], ...savedSettings() },
+	initialState: {
+		spotlightFavourite: null,
+		prices: [],
+		historicalPrices: null,
+		...savedSettings(),
+	},
 	reducers: {
 		setPage: (state, action) => {
 			state.page = action.payload;
@@ -45,8 +51,43 @@ export const appSlice = createSlice({
 				})
 			);
 		},
+		setHistoricalPrices: (state, action) => {
+			state.historicalPrices = action.payload;
+		},
 	},
 });
+
+export const fetchHistorical = () => async (dispatch, getState) => {
+	const TIME_UNITS = 10;
+	const historicalData = [];
+
+	dispatch(setHistoricalPrices(null));
+
+	for (let i = 0; i < TIME_UNITS; i++) {
+		try {
+			let priceData = await cc.priceHistorical(
+				getState().app.spotlightFavourite,
+				['GBP'],
+				moment().subtract({ months: i }).toDate()
+			);
+			historicalData.push(priceData);
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
+	const returnData = [
+		{
+			name: getState().app.spotlightFavourite,
+			data: historicalData.map((el, i) => [
+				moment().subtract({ months: i }).valueOf(),
+				el.GBP,
+			]),
+		},
+	];
+
+	dispatch(setHistoricalPrices(returnData));
+};
 
 export const fetchPrices = () => async (dispatch, getState) => {
 	const favourites = getState().app.favourites;
@@ -75,6 +116,7 @@ export const {
 	removeFromFavourites,
 	setPrices,
 	setSpotlightFavourite,
+	setHistoricalPrices,
 } = appSlice.actions;
 
 export default appSlice.reducer;

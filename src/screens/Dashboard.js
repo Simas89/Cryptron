@@ -1,4 +1,5 @@
 import React from 'react';
+
 import styled from 'styled-components';
 import PriceGrid from 'components/PriceGrid';
 import CoinSpotLight from 'components/CoinSpotLight';
@@ -11,9 +12,14 @@ const Div = styled.div`
 	gap: ${(p) => p.theme.spacing(2)}px;
 
 	.contents {
-		display: grid;
+		position: relative;
+		/* display: grid;
 		grid-template-columns: auto auto;
+		gap: ${(p) => p.theme.spacing(2)}px; */
+		display: flex;
 		gap: ${(p) => p.theme.spacing(2)}px;
+		align-items: stretch;
+		justify-content: stretch;
 	}
 `;
 

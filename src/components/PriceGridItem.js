@@ -58,6 +58,7 @@ const PriceGridItem = ({ price }) => {
 					<ChangePct red={data.CHANGEPCT24HOUR < 0}>
 						<Typography noWrap variant="body2">
 							<b>
+								%
 								{data.CHANGEPCT24HOUR
 									? data.CHANGEPCT24HOUR.toFixed(2)
 									: null}
