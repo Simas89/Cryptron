@@ -11,11 +11,6 @@ export const chartConfig = (historicalPrices) => {
 		},
 
 		xAxis: {
-			accessibility: {
-				rangeDescription: 'Range: 2010 to 2017',
-			},
-		},
-		xAxis: {
 			type: 'datetime',
 		},
 

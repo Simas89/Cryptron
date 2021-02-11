@@ -20,6 +20,9 @@ const theme = createMuiTheme({
 				},
 			},
 		},
+		MuiListPadding: {
+			padding: 0,
+		},
 	},
 });
 

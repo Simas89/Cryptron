@@ -10,6 +10,7 @@ export const appSlice = createSlice({
 		spotlightFavourite: null,
 		prices: [],
 		historicalPrices: null,
+		timeFrame: 'days',
 		...savedSettings(),
 	},
 	reducers: {
@@ -54,11 +55,14 @@ export const appSlice = createSlice({
 		setHistoricalPrices: (state, action) => {
 			state.historicalPrices = action.payload;
 		},
+		setTimeFrame: (state, action) => {
+			state.timeFrame = action.payload.toLowerCase();
+		},
 	},
 });
 
 export const fetchHistorical = () => async (dispatch, getState) => {
-	const TIME_UNITS = 10;
+	const TIME_UNITS = 24;
 	const historicalData = [];
 
 	dispatch(setHistoricalPrices(null));
@@ -68,7 +72,9 @@ export const fetchHistorical = () => async (dispatch, getState) => {
 			let priceData = await cc.priceHistorical(
 				getState().app.spotlightFavourite,
 				['GBP'],
-				moment().subtract({ months: i }).toDate()
+				moment()
+					.subtract({ [getState().app.timeFrame]: i })
+					.toDate()
 			);
 			historicalData.push(priceData);
 		} catch (error) {
@@ -80,7 +86,9 @@ export const fetchHistorical = () => async (dispatch, getState) => {
 		{
 			name: getState().app.spotlightFavourite,
 			data: historicalData.map((el, i) => [
-				moment().subtract({ months: i }).valueOf(),
+				moment()
+					.subtract({ [getState().app.timeFrame]: i })
+					.valueOf(),
 				el.GBP,
 			]),
 		},
@@ -117,6 +125,7 @@ export const {
 	setPrices,
 	setSpotlightFavourite,
 	setHistoricalPrices,
+	setTimeFrame,
 } = appSlice.actions;
 
 export default appSlice.reducer;

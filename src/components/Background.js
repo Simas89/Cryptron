@@ -4,10 +4,10 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Particles from 'react-particles-js';
 
 const Wrapper = styled.div`
-	position: absolute;
+	position: fixed;
 	left: 0;
 	height: 100%;
-	width: 100%;
+	width: 100vw;
 	background: radial-gradient(
 		${(p) => p.theme.palette.secondary.light},
 		${(p) => p.theme.palette.secondary.main}

@@ -5,15 +5,20 @@ import Contents from 'components/Contents';
 import NavBar from 'components/NavBar';
 import { Container } from '@material-ui/core';
 
-const StyledContainer = styled(Container)``;
+const StyledContainer = styled(Container)`
+	/* position: relative; */
+	padding-bottom: 20px;
+`;
 
 function App() {
 	return (
-		<StyledContainer>
-			<Background />
-			<NavBar />
-			<Contents />
-		</StyledContainer>
+		<>
+			<StyledContainer>
+				<Background />
+				<NavBar />
+				<Contents />
+			</StyledContainer>
+		</>
 	);
 }
 

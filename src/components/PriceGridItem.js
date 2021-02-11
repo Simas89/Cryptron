@@ -12,14 +12,12 @@ const Div = styled.div`
 	align-items: flex-start;
 	padding: 8px;
 	background-color: rgb(6, 26, 68);
+	/* width: 300px; */
+	flex-wrap: 1;
+	z-index: 10;
 
 	&:hover {
 		cursor: pointer;
-		${(p) =>
-			!p.topSection &&
-			css`
-				background-color: rgb(36, 58, 91);
-			`}
 	}
 	${(p) =>
 		p.isSpotlightFavourite &&
@@ -51,7 +49,7 @@ const PriceGridItem = ({ price }) => {
 		dispatch(setSpotlightFavourite(sym));
 	};
 	return (
-		<Grid item xs={3} md={2} onClick={clickHandler}>
+		<Grid item xs={6} sm={4} md={2} onClick={clickHandler}>
 			<Div isSpotlightFavourite={isSpotlightFavourite}>
 				<Box width="100%" display="flex" justifyContent="space-between">
 					<Typography noWrap variant="body2">
